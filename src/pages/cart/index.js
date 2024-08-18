@@ -1,15 +1,22 @@
 import Head from "next/head";
-import styles from '../../styles/products.module.css';
+import styles from '../../styles/cartItems.module.css';
 import MainNavigation from "@/components/Layout/mainNavigation";
-import ProductItem from "@/components/productItem";
 import { useContext } from "react";
 import { CartContext } from "@/context/cartContext";
+import CartItem from "@/components/cartItems";
 
 export default function Cart() {
-     const {items} = useContext(CartContext)
-     console.log(items)
-    //  const products = localStorage.getItem('cart');
-    //  console.log(products)
+     const {items} = useContext(CartContext);
+     console.log(items);
+     const cartSummary = () => {
+        let total = 0;
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            total += item.price * item.quantity;
+        }
+        return total;
+     }
+     const totalPrice = cartSummary();
     return (
      <>
         <Head>
@@ -24,15 +31,34 @@ export default function Cart() {
         </Head>
         <main className={styles.shop}>
             <MainNavigation/>
-            <div className={styles.mainContent}>
                 {items.length === 0 ? <p>Cart Is Empty</p> : 
-                 <ul className={styles.productList}>
-                    {items.map((prod) => {
-                        return <li key={prod._id}><ProductItem product={prod}/></li>
-                    })}
-                </ul>
+                 <div className={styles.mainContent}>
+                    <ul className={styles.productList}>
+                        {items.map((prod) => {
+                            return <li key={prod._id}><CartItem product={prod}/></li>
+                        })}
+                    </ul>
+                    <div>
+                        <div className={styles.cartSummary}>
+                            <div>
+                                <h4>Subtotal</h4>
+                                <h4>${totalPrice.toFixed(2)}</h4>
+                            </div>
+                            <div>
+                            <h4>Discount</h4>
+                            <h4>$0.00</h4>
+                            </div>
+                            <hr></hr>
+                            <div>
+                            <h2>Grand total</h2>
+                            <h2>${parseFloat(totalPrice).toFixed(2)}</h2>
+                            </div>
+                            <button>Checkout</button>
+                        </div>
+                    </div>
+                </div>
                 }
-            </div>
+            
            
         </main>
      </>

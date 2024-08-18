@@ -1,6 +1,33 @@
+import { CartContext } from '@/context/cartContext';
 import styles from '../../styles/mainNav.module.css';
+import { useContext, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 export default function MainNavigation(){
+    const {items} = useContext(CartContext);
+    const router = useRouter();
+
+    let userName;
+    useEffect(() => {
+        userName = sessionStorage.getItem('userName');
+    },[])
+    const calculateTotalItems = () => {
+        let totalItems = 0;
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            totalItems +=  item.quantity;
+        }
+        return totalItems;
+    }
+
+    const itemCount = calculateTotalItems();
+
+    const handleLogout = () => {
+        sessionStorage.removeItem('userId');
+        sessionStorage.removeItem('userName');
+        console.log('logged out successfully');
+        router.push('/');
+    }
     return <>
         <nav className={styles.navBar}>
             <div className={styles.logo}>
@@ -10,9 +37,15 @@ export default function MainNavigation(){
             
             <div className={styles.menu}>
                 <a href='/shop'>Products</a>
-                <a href='/cart'>Cart</a>
+                <a href='/cart'>Cart { itemCount> 0 &&<span>({itemCount})</span>}</a>
             </div>
            
+           {/* <div>
+                <h3>{userName}</h3>
+           </div> */}
+           <div className={styles.logoutButton}>
+            <button onClick={handleLogout}>Logout</button>
+           </div>
         </nav>
     </>
 }

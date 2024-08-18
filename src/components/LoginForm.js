@@ -3,6 +3,7 @@ import styles from '../styles/auth.module.css';
 import { useRouter } from 'next/router';
 
 export default function LoginForm() {
+    
     const router = useRouter();
 
     const email = useRef();
@@ -32,7 +33,6 @@ export default function LoginForm() {
             console.log('Login successful');
             sessionStorage.setItem('userId',resData.userId);
             router.push('/shop');       
-            
         })
     }
     
@@ -41,7 +41,7 @@ export default function LoginForm() {
             <h3>Welcome Back!</h3>
             <input type='email' name='email' id='email' placeholder='Email Address' ref={email} required/>
             <input type='password' name='password' id='password' placeholder='Password' ref={password} required/>
-            <button>Log In</button>
+            <button >Log In</button>
             <p>Don't have an account? <a href='/auth/'>Sign Up</a></p>
         </form>
     </div>   

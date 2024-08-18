@@ -4,11 +4,19 @@ import styles from '../../styles/products.module.css';
 import { PRODUCTS } from "@/data";
 import MainNavigation from "../../components/Layout/mainNavigation";
 import ProductItem from "@/components/productItem";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "@/context/cartContext";
 
 
 export default function Products() {
+    const [showFeedback, setShowFeedback] = useState(false);
+    
+    const handleShowFeedback = () => {
+        setShowFeedback(true);
+        setTimeout(() => {
+            setShowFeedback(false)
+        },3000)
+    }
     const {items} = useContext(CartContext);
     console.log(items)
     return (
@@ -25,11 +33,11 @@ export default function Products() {
         </Head>
         <main className={styles.shop}>
             <MainNavigation/>
-
+            {showFeedback && <h3 className={styles.feedback}>Product Added!</h3>}
             <div className={styles.mainContent}>
                  <ul className={styles.productList}>
                     {PRODUCTS.map((prod) => {
-                        return <li key={prod._id}><ProductItem product={prod}/></li>
+                        return <li key={prod._id}><ProductItem product={prod} showFeedback={handleShowFeedback}/></li>
                     })}
                 </ul>
             </div>

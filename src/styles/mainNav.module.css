@@ -18,9 +18,9 @@
 }
 
 .menu{
-    flex: 1 0 80%;
+    flex: 1 0 60%;
     display: flex;
-    padding-right:  250px;
+    /* padding-right:  250px; */
     justify-content: center;
     align-items: center;
     gap: 40px;
@@ -34,4 +34,30 @@
 .navBar img{
     width: 30px;
     height: 30px;
+}
+
+.logoutButton{
+    font-size: medium;
+    flex: 1 0 20%;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 10px;
+
+}
+
+.logoutButton button{
+    padding: 10px;
+    font-size: medium;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: #1b2451;
+    color: white;
+    font-weight: 700;
+}
+
+.logoutButton button:hover{
+    
+    color: #1b2451;
+    background-color: #b9c3fc;
+    
 }

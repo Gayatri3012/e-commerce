@@ -1,17 +1,23 @@
 import { createContext, useReducer, useEffect, useMemo } from "react";
-import PRODUCTS from '@/products-data.json';
+import { PRODUCTS } from "@/data";
+import mongoose from "mongoose";
+
+// let userId;
 
 export const CartContext = createContext({
     items:[],
     addItemToCart: () => {},
-    updateItemQuantity: () => {},
+    updateCartItem: () => {},
 })
   
- const cartReducer = async (state, action) => {
+ const cartReducer = (state, action) => {
     const { type, payload } = action;
 
     if(type === 'ADD_ITEM'){
-      console.log(state.items)
+      if(state.items === undefined) {
+        console.log('state is undefined')
+        return;
+      }
       const updatedItems = [...state.items];
       const existingCartItemIndex = updatedItems.findIndex(
         (cartItem) => cartItem._id === payload.id
@@ -19,30 +25,25 @@ export const CartContext = createContext({
       const existingCartItem = updatedItems[existingCartItemIndex];
 
       if(existingCartItem){
+        console.log('item exists')
         const updatedItem = {
           ...existingCartItem,
           quantity: existingCartItem.quantity + 1
         };
         updatedItems[existingCartItemIndex] = updatedItem;
-
-
+        console.log(updatedItems)
         return {
           ...state,
           items: updatedItems,
         }
       } else {
+        console.log('item does not exists')
         const product = PRODUCTS.find((product) => product._id === payload.id);
         updatedItems.push({
           ...product,
           quantity: 1
         })
-        const response = await fetch(`/api/cart/${userId}`,{
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(updatedItems),
-        }) 
+       
         return {
           ...state,
           items: updatedItems,
@@ -51,14 +52,35 @@ export const CartContext = createContext({
     
     }
 
-    if(type === 'UPDATE_ITEM'){
-      console.log('updating')
+    
+  if(action.type === 'UPDATE_ITEM'){
+    const updatedItems = [...state.items];
+    const updatedItemIndex = updatedItems.findIndex(
+      (item) => item._id === action.payload.id
+    );
+ 
+    const updatedItem = {
+      ...updatedItems[updatedItemIndex],
+    };
+    
+    updatedItem.quantity += action.payload.amount;
+    
+    if (updatedItem.quantity <= 0) {
+      updatedItems.splice(updatedItemIndex, 1);
+    } else {
+      updatedItems[updatedItemIndex] = updatedItem;
     }
+    
+    return {
+      ...state,
+      items: updatedItems,
+    };
+  }
 
     if(type === 'SET_CART'){
       return {
         ...state, 
-        items: payload
+        items: payload || []
       }
     }
     return state;
@@ -66,62 +88,73 @@ export const CartContext = createContext({
   
 
 export const CartProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(cartReducer, { items: [] });
+  const [state, dispatch] = useReducer(cartReducer, { items: []});
 
-  let userId;
   useEffect(() => {
-    userId= sessionStorage.getItem('userId');  
-    async function getCart() {
-      try{
-        fetch(`/api/cart/${userId}`,{
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-        .then(res => {
-          return res.json();
-        })
-        .then(result => {
-          console.log(result.items)
-          dispatch({type: 'SET_CART', payload: result.items})
-        })
-      }catch(err){
-        console.error('Error fetching cart : ',err)
-      }
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+        dispatch({ type: 'SET_CART', payload: JSON.parse(storedCart) });
     }
-    if(userId){
-      getCart();
+  }, []);
+  useEffect(() => {
+    if (Array.isArray(state.items) && state.items.length > 0) {
+        localStorage.setItem('cart', JSON.stringify(state.items));
+    } else {
+        localStorage.removeItem('cart'); // Remove cart from localStorage if items array is empty
     }
-  },[userId])
+  }, [state.items]);
+  
+  // useEffect(() => {
+  //   userId= sessionStorage.getItem('userId'); 
+  //   async function getCart() {
+  //     try{
+  //       fetch(`/api/cart/${userId}`,{
+  //         method: 'GET',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //       })
+  //       .then(res => {
+  //         return res.json();
+  //       })
+  //       .then(result => {
+  //         dispatch({type: 'SET_CART', payload: result.items})
+  //       })
+  //     }catch(err){
+  //       console.error('Error fetching cart : ',err)
+  //     }
+  //   }
+  //   if(userId){
+  //     getCart();
+  //   }
+  // },[userId])
 
   const handleAddToCart = async (id, userId) => {
-    console.log(userId);
-    const response = await fetch(`/api/cart/${userId}`,{
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify([{ productId: id, quantity: 1 }]),
-    })
-    if (!response.ok) {
-      throw new Error('Failed to add item to cart');
-    }
-    console.log()
 
     console.log('adding to cart');
       dispatch({
           type: 'ADD_ITEM',
           payload: {id, userId} ,
       })
-
+      console.log(state.items);
+      // const response = await fetch(`/api/cart/${userId}`,{
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify(state.items),
+      // })
+      // if (!response.ok) {
+      //   throw new Error('Failed to add item to cart');
+      // }
   };
 
-  const handleUpdateCartItem = (id) => {
+  const handleUpdateCartItem = (id, amount) => {
       dispatch({
           type: "UPDATE_ITEM",
           payload: {
-            items: updatedCart,
+            id,
+            amount
           },
       });
   };
@@ -129,7 +162,7 @@ export const CartProvider = ({ children }) => {
   const contextValue = useMemo(() => ({
     items: state.items,
     addItemToCart: handleAddToCart,
-    updatedItem: handleUpdateCartItem,
+    updateCartItem: handleUpdateCartItem,
 }), [state.items]);
 
   return <CartContext.Provider value={contextValue}>

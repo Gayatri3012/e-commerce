@@ -37,6 +37,10 @@
     color: #1b2451;
 }
 
+.authForm button:disabled {
+    background-color: gray;
+}
+
 .authForm a{
     font-weight: 600;
     color: #1b2451;

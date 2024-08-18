@@ -1,12 +1,12 @@
 import { MongoClient } from "mongodb";
 import bcrypt from 'bcryptjs';
 import User from "@/models/user";
+import Cart from "@/models/cart";
 
 export default async function handler(req, res) {
   console.log('in signup handler')
   if(req.method === 'POST'){
     const data = req.body;
-    console.log(data)
 
     const client = await MongoClient.connect(process.env.MONGO_CONNECTION_URL);
     const db = client.db('e-commerce');
@@ -22,8 +22,9 @@ export default async function handler(req, res) {
         cart: []
       });
       const result = await users.insertOne(user);
-      console.log(result.id)
-      console.log(result)
+      let cart;
+      cart = new Cart({ user: user._id, items: [] });
+      const response = await db.collection('carts').insertOne(cart)
       res.status(200).json({ message: 'User created!'});
     } catch(err){
       console.error(err);
