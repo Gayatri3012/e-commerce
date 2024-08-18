@@ -2,6 +2,7 @@ import { CartContext } from '@/context/cartContext';
 import styles from '../../styles/mainNav.module.css';
 import { useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function MainNavigation(){
     const {items} = useContext(CartContext);
@@ -37,8 +38,8 @@ export default function MainNavigation(){
             </div>
             
             <div className={styles.menu}>
-                <a href='/shop'>Products</a>
-                <a href='/cart'>Cart { itemCount> 0 &&<span>({itemCount})</span>}</a>
+                <Link href='/shop'>Products</Link>
+                <Link href='/cart'>Cart { itemCount> 0 &&<span>({itemCount})</span>}</Link>
             </div>
            
            {/* <div>

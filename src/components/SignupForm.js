@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import styles from '../styles/auth.module.css';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function SignupForm() {
 
@@ -45,7 +46,7 @@ export default function SignupForm() {
             <input type='email' name='email' id='email' placeholder='Email Address' required ref={email}/>
             <input type='password' name='password' id='password' placeholder='Password' required ref={password} minLength={5}/>
             <button >Create Account</button>
-            <p>Already have an account? <a href='/auth/login'>Log in</a></p>
+            <p>Already have an account? <Link href='/auth/login'>Log in</Link></p>
         </form>
     </div>   
 }
