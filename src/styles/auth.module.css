@@ -1,0 +1,43 @@
+.formContainer{
+    min-width: 400px;
+    border-radius: 12px;
+    background-color: rgba(240, 248, 255, 0.563);
+}
+
+.authForm{
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: column;
+}
+
+.authForm input{
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 0;
+    background-color: aliceblue;
+    color: black;
+}
+
+.authForm button{
+    padding: 10px;
+    background-color: #1b2451;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    font-weight: 700;
+    font-size: large;
+}
+
+.authForm button:hover{
+    background-color: #ecefff;
+    color: #1b2451;
+}
+
+.authForm a{
+    font-weight: 600;
+    color: #1b2451;
+}

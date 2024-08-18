@@ -1,7 +1,8 @@
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
+import SignupForm from "@/components/SignupForm";
 
-export default function Home() {
+export default function Auth() {
   return (
     <>
       <Head>
@@ -14,15 +15,7 @@ export default function Home() {
         <link href="https://fonts.googleapis.com/css2?family=New+Amsterdam&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet"/>
       </Head>
       <main className={styles.main}>
-        <div className={styles.description}>
-          <div>
-             <h1>ShopIt</h1>
-          </div>
-        </div>
-        <div className={styles.center}>
-          <h3>Your style, simplified</h3>
-          <a href='/auth'>Get Started</a>
-        </div>
+        <SignupForm />
       </main>
     </>
   );
