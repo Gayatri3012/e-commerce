@@ -25,6 +25,7 @@ export default function MainNavigation(){
     const handleLogout = () => {
         sessionStorage.removeItem('userId');
         sessionStorage.removeItem('userName');
+        localStorage.removeItem('cart')
         console.log('logged out successfully');
         router.push('/');
     }

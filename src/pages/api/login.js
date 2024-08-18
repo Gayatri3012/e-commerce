@@ -10,7 +10,6 @@ export default async function handler(req, res) {
     const db = client.db('e-commerce');
 
     const users = db.collection('users');
-    console.log(users)
 
     try{
         const user = await users.findOne({email : data.email});

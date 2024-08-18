@@ -18,15 +18,18 @@
     margin-bottom: 100px;
     padding:0 3rem ;
     list-style: none;
-    display: grid;
+    /* display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 2.5rem;
-    row-gap: 4rem;
+    row-gap: 4rem; */
 
-    /* display: flex;
+    display: flex;
     flex-wrap: wrap;
-    justify-content: space-between; 
-    align-items: center; */
+    justify-content: space-evenly; 
+    padding: 2rem;
+    gap: 2.5rem;
+    column-gap: 4rem;
+    align-items: center;
 }
 
 .productList li{
