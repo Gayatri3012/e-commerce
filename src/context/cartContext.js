@@ -1,8 +1,6 @@
 import { createContext, useReducer, useEffect, useMemo } from "react";
 import { PRODUCTS } from "@/data";
-import mongoose from "mongoose";
 
-// let userId;
 
 export const CartContext = createContext({
     items:[],
@@ -104,30 +102,6 @@ export const CartProvider = ({ children }) => {
     }
   }, [state.items]);
   
-  // useEffect(() => {
-  //   userId= sessionStorage.getItem('userId'); 
-  //   async function getCart() {
-  //     try{
-  //       fetch(`/api/cart/${userId}`,{
-  //         method: 'GET',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //       })
-  //       .then(res => {
-  //         return res.json();
-  //       })
-  //       .then(result => {
-  //         dispatch({type: 'SET_CART', payload: result.items})
-  //       })
-  //     }catch(err){
-  //       console.error('Error fetching cart : ',err)
-  //     }
-  //   }
-  //   if(userId){
-  //     getCart();
-  //   }
-  // },[userId])
 
   const handleAddToCart = async (id, userId) => {
 
@@ -137,16 +111,6 @@ export const CartProvider = ({ children }) => {
           payload: {id, userId} ,
       })
       console.log(state.items);
-      // const response = await fetch(`/api/cart/${userId}`,{
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(state.items),
-      // })
-      // if (!response.ok) {
-      //   throw new Error('Failed to add item to cart');
-      // }
   };
 
   const handleUpdateCartItem = (id, amount) => {
