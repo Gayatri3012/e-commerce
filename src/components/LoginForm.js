@@ -43,7 +43,7 @@ export default function LoginForm() {
             <input type='email' name='email' id='email' placeholder='Email Address' ref={email} required/>
             <input type='password' name='password' id='password' placeholder='Password' ref={password} required/>
             <button >Log In</button>
-            <p>Don't have an account? <Link href='/auth/'>Sign Up</Link></p>
+            <p>Don&apos;t have an account? <Link href='/auth/'>Sign Up</Link></p>
         </form>
     </div>   
 }
