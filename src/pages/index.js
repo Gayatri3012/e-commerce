@@ -1,5 +1,6 @@
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -21,7 +22,7 @@ export default function Home() {
         </div>
         <div className={styles.center}>
           <h3>Your style, simplified</h3>
-          <a href='/auth'>Get Started</a>
+          <Link href='/auth'>Get Started</Link>
         </div>
       </main>
     </>
