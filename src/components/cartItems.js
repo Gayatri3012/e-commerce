@@ -13,11 +13,11 @@ export default function CartItem({product}) {
        <div className={styles.titleSection}>
        <Image 
         src={product.image}
-        width={100}
-        height={100}
+        width={60}
+        height={60}
         alt={product.title}
         />
-          <h4>{product.title}</h4>
+          <h5>{product.title}</h5>
        </div>
         
        

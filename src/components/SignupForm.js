@@ -7,6 +7,7 @@ import Link from 'next/link';
 export default function SignupForm() {
 
     const [errorMessage, setErrorMessage] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
     
     const name = useRef();
@@ -17,6 +18,7 @@ export default function SignupForm() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log('Submitting...');
+        setIsLoading(true);
         const formData = {
             name: name.current.value,
             email: email.current.value,
@@ -47,6 +49,7 @@ export default function SignupForm() {
                 return;
             }else {
                console.log('Signup successful');
+               setIsLoading(false);
                 router.push('/auth/login');   
             }
                  
@@ -64,7 +67,7 @@ export default function SignupForm() {
             <input className={errorMessage ? styles.errorField : undefined} type='email' name='email' id='email' placeholder='Email Address' required ref={email}/>
             
             <input type='password' name='password' id='password' placeholder='Password' required ref={password} minLength={5}/>
-            <button >Create Account</button>
+            <button >{ isLoading ? <img className={styles.loadingGIF} src="/loading.gif" alt="loading..." /> : "Create Account"}</button>
             <p>Already have an account? <Link href='/auth/login'>Log in</Link></p>
         </form>
     </div>   

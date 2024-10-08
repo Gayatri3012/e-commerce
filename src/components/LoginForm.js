@@ -6,6 +6,7 @@ import Link from 'next/link';
 export default function LoginForm() {
 
     const [errorMessage, setErrorMessage] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     
     const router = useRouter();
 
@@ -14,6 +15,7 @@ export default function LoginForm() {
 
     const handleLogin = async (event) => {
         event.preventDefault();
+        setIsLoading(true);
         console.log('In Handle Login');
         const formData = {
             email: email.current.value,
@@ -44,6 +46,7 @@ export default function LoginForm() {
                 console.log(resData);
                 console.log('Login successful');
                 sessionStorage.setItem('userId',resData.userId);
+                setIsLoading(false);
                 router.push('/shop');  
             }
               
@@ -58,7 +61,7 @@ export default function LoginForm() {
             {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
             <input className={errorMessage === 'Please enter valid credentials.' ? styles.errorField : undefined} type='email' name='email' id='email' placeholder='Email Address' ref={email} required/>
             <input className={errorMessage === 'Incorrect password.' ? styles.errorField : undefined} type='password' name='password' id='password' placeholder='Password' ref={password} required/>
-            <button >Log In</button>
+            <button >{ isLoading ? <img className={styles.loadingGIF} src="/loading.gif" alt="loading..." /> : "Log In"}</button>
             <p>Don&apos;t have an account? <Link href='/auth/'>Sign Up</Link></p>
         </form>
     </div>   

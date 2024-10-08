@@ -39,11 +39,11 @@ export default function MainNavigation(){
             
             <div className={styles.menu}>
                 <Link href='/shop' className={styles.menuItem}>
-                    <img src="/Home.png" alt="home icon" />
+                    <img src="/Home.png" alt="home icon" className={styles.homeIcon} />
                     <p>Products</p>
                 </Link>
                 <Link href='/cart' className={styles.menuItem}>
-                    <img src="/cart.png" alt="cart icon" />
+                    <img src="/cart.png" alt="cart icon" className={styles.cartIcon}/>
                     <p>Cart </p>
                      { itemCount > 0 &&<span>({itemCount})</span>}
                 </Link>
