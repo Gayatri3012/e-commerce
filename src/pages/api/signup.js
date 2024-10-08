@@ -14,6 +14,11 @@ export default async function handler(req, res) {
     const users = db.collection('users');
     try{
       
+      const userExists = await users.findOne({email : data.email});
+      if(userExists){
+          res.status(400).json({message: 'Email already exists.'})
+      }
+
       const hashedPw = await bcrypt.hash(data.password, 12);
       const user = new User({
         name: data.name,

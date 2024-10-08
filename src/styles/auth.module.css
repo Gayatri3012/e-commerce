@@ -22,6 +22,16 @@
     color: black;
 }
 
+.errorField {
+    border: 1px solid red !important;
+}
+
+.errorMessage{
+    font-size: 14px;
+    color: red;
+}
+
+
 .authForm button{
     padding: 10px;
     background-color: #1b2451;

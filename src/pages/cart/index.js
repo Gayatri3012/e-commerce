@@ -31,8 +31,8 @@ export default function Cart() {
         </Head>
         <main className={styles.shop}>
             <MainNavigation/>
-                {items.length === 0 ? <p>Cart Is Empty</p> : 
-                 <div className={styles.mainContent}>
+                {items.length === 0 && <p className={styles.emptyCart}>Cart Is Empty...</p>}
+                 { items.length > 0 && <div className={styles.mainContent}>
                     <ul className={styles.productList}>
                         {items.map((prod) => {
                             return <li key={prod._id}><CartItem product={prod}/></li>
@@ -41,17 +41,17 @@ export default function Cart() {
                     <div>
                         <div className={styles.cartSummary}>
                             <div>
-                                <h4>Subtotal</h4>
-                                <h4>${totalPrice.toFixed(2)}</h4>
+                                <p>Subtotal</p>
+                                <p>${totalPrice.toFixed(2)}</p>
                             </div>
                             <div>
-                            <h4>Discount</h4>
-                            <h4>$0.00</h4>
+                            <p>Discount</p>
+                            <p>$0.00</p>
                             </div>
                             <hr></hr>
                             <div>
-                            <h2>Grand total</h2>
-                            <h2>${parseFloat(totalPrice).toFixed(2)}</h2>
+                            <h3>Grand total</h3>
+                            <h3>${parseFloat(totalPrice).toFixed(2)}</h3>
                             </div>
                             <button>Checkout</button>
                         </div>

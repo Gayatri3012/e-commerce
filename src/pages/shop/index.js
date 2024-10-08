@@ -33,7 +33,7 @@ export default function Products() {
         </Head>
         <main className={styles.shop}>
             <MainNavigation/>
-            {showFeedback && <h3 className={styles.feedback}>Product Added!</h3>}
+            {showFeedback && <p className={styles.feedback}>Product Added</p>}
             <div className={styles.mainContent}>
                  <ul className={styles.productList}>
                     {PRODUCTS.map((prod) => {

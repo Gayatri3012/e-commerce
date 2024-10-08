@@ -13,9 +13,12 @@ export default async function handler(req, res) {
 
     try{
         const user = await users.findOne({email : data.email});
+        if(!user){
+          res.status(400).json({message: 'Please enter valid credentials.'})
+        }
         const isEqual = await bcrypt.compare(data.password, user.password);
         if(!isEqual){
-            res.status(400).json({message: 'Please enter valid credentials.'})
+            res.status(400).json({message: 'Incorrect password.'})
         }
 
         res.status(200).json({message: 'Login successful', userId: user._id});

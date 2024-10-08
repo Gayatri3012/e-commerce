@@ -17,7 +17,7 @@ export default function CartItem({product}) {
         height={100}
         alt={product.title}
         />
-          <h2>{product.title}</h2>
+          <h4>{product.title}</h4>
        </div>
         
        

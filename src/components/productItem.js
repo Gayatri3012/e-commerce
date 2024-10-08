@@ -24,7 +24,10 @@ export default function ProductItem({product, showFeedback}) {
         height={300}
         alt={product.title}
         />
-         <h2>{product.title}</h2>
+        <div className={styles.title}>
+              <p>{product.title}</p>
+        </div>
+       
         <div className={styles.price}>
             <h4 className={styles.oldPrice}>${parseFloat(product.oldPrice).toFixed(2)}</h4>
             <h4>${parseFloat(product.price).toFixed(2)}</h4>

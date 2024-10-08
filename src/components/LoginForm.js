@@ -1,9 +1,11 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import styles from '../styles/auth.module.css';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 export default function LoginForm() {
+
+    const [errorMessage, setErrorMessage] = useState(null);
     
     const router = useRouter();
 
@@ -25,23 +27,37 @@ export default function LoginForm() {
             },
             body: JSON.stringify(formData)
         }).then(res =>{
-            if(res.status !== 200){
+            if(res.status === 400){
+                setErrorMessage(res.message);
+            }
+            if(res.status !== 200 && res.status !== 400){
                 throw new Error('Something went wrong!!!');
             }
             return res.json();
         }).then(resData => {
-            console.log(resData);
-            console.log('Login successful');
-            sessionStorage.setItem('userId',resData.userId);
-            router.push('/shop');       
-        })
+            if(resData.message === 'Please enter valid credentials.'){
+                setErrorMessage('Please enter valid email.');
+                password.current.value = '';
+            } else if(resData.message === 'Incorrect password.'){
+                setErrorMessage('Incorrect password.');
+            } else {
+                console.log(resData);
+                console.log('Login successful');
+                sessionStorage.setItem('userId',resData.userId);
+                router.push('/shop');  
+            }
+              
+        }).catch((error) => {
+            console.error('Login error:', error); 
+        });
     }
     
     return <div className={styles.formContainer}>
         <form className={styles.authForm} onSubmit={handleLogin}>
             <h3>Welcome Back!</h3>
-            <input type='email' name='email' id='email' placeholder='Email Address' ref={email} required/>
-            <input type='password' name='password' id='password' placeholder='Password' ref={password} required/>
+            {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+            <input className={errorMessage === 'Please enter valid credentials.' ? styles.errorField : undefined} type='email' name='email' id='email' placeholder='Email Address' ref={email} required/>
+            <input className={errorMessage === 'Incorrect password.' ? styles.errorField : undefined} type='password' name='password' id='password' placeholder='Password' ref={password} required/>
             <button >Log In</button>
             <p>Don&apos;t have an account? <Link href='/auth/'>Sign Up</Link></p>
         </form>

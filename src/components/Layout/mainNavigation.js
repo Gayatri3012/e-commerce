@@ -38,8 +38,15 @@ export default function MainNavigation(){
             </div>
             
             <div className={styles.menu}>
-                <Link href='/shop'>Products</Link>
-                <Link href='/cart'>Cart { itemCount> 0 &&<span>({itemCount})</span>}</Link>
+                <Link href='/shop' className={styles.menuItem}>
+                    <img src="/Home.png" alt="home icon" />
+                    <p>Products</p>
+                </Link>
+                <Link href='/cart' className={styles.menuItem}>
+                    <img src="/cart.png" alt="cart icon" />
+                    <p>Cart </p>
+                     { itemCount > 0 &&<span>({itemCount})</span>}
+                </Link>
             </div>
            
            {/* <div>
