@@ -31,17 +31,22 @@ export default function LoginForm() {
         }).then(res =>{
             if(res.status === 400){
                 setErrorMessage(res.message);
+                setIsLoading(false)
             }
             if(res.status !== 200 && res.status !== 400){
+                setIsLoading(false)
                 throw new Error('Something went wrong!!!');
             }
+            
             return res.json();
         }).then(resData => {
             if(resData.message === 'Please enter valid credentials.'){
                 setErrorMessage('Please enter valid email.');
                 password.current.value = '';
+                setIsLoading(false)
             } else if(resData.message === 'Incorrect password.'){
                 setErrorMessage('Incorrect password.');
+                setIsLoading(false)
             } else {
                 console.log(resData);
                 console.log('Login successful');

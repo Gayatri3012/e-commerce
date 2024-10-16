@@ -34,9 +34,11 @@ export default function SignupForm() {
         }).then(res =>{
             if(res.status === 400){
                 setErrorMessage(res.message);
+                setIsLoading(false)
                 // throw new Error('Email already exists!!!');
             }
             if(res.status !== 200 && res.status !== 400){
+                setIsLoading(false);
                 throw new Error('Something went wrong!!!');
             }
             return res.json();
@@ -45,6 +47,7 @@ export default function SignupForm() {
             if(resData.message === 'Email already exists.'){
                 setErrorMessage('Email already exists.')
                 password.current.value = '';
+                setIsLoading(false)
               
                 return;
             }else {

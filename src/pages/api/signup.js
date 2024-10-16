@@ -17,20 +17,21 @@ export default async function handler(req, res) {
       const userExists = await users.findOne({email : data.email});
       if(userExists){
           res.status(400).json({message: 'Email already exists.'})
+      } else {
+        const hashedPw = await bcrypt.hash(data.password, 12);
+        const user = new User({
+          name: data.name,
+          email: data.email,
+          password: hashedPw,
+          cart: []
+        });
+        const result = await users.insertOne(user);
+        let cart;
+        cart = new Cart({ user: user._id, items: [] });
+        const response = await db.collection('carts').insertOne(cart)
+        res.status(200).json({ message: 'User created!'});
       }
-
-      const hashedPw = await bcrypt.hash(data.password, 12);
-      const user = new User({
-        name: data.name,
-        email: data.email,
-        password: hashedPw,
-        cart: []
-      });
-      const result = await users.insertOne(user);
-      let cart;
-      cart = new Cart({ user: user._id, items: [] });
-      const response = await db.collection('carts').insertOne(cart)
-      res.status(200).json({ message: 'User created!'});
+      
     } catch(err){
       console.error(err);
 
