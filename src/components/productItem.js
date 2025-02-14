@@ -18,10 +18,10 @@ export default function ProductItem({product, showFeedback}) {
     
     return <div className={styles.productCard}>
        
-        <Image 
+        <img 
         src={product.image}
-        width={300}
-        height={300}
+        // width={300}
+        // height={300}
         alt={product.title}
         />
         <div className={styles.title}>

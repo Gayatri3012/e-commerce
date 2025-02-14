@@ -61,7 +61,11 @@ export default function SignupForm() {
             console.error('Signup error:', error); 
         });
     }
- 
+
+    const handleDemoLogin = () => {
+        router.push('/auth/login?demo=true');
+    };
+
     return <div className={styles.formContainer}>
         <form className={styles.authForm} onSubmit={handleSubmit} >
             <h3>Create account</h3>
@@ -70,7 +74,14 @@ export default function SignupForm() {
             <input className={errorMessage ? styles.errorField : undefined} type='email' name='email' id='email' placeholder='Email Address' required ref={email}/>
             
             <input type='password' name='password' id='password' placeholder='Password' required ref={password} minLength={5}/>
-            <button >{ isLoading ? <img className={styles.loadingGIF} src="/loading.gif" alt="loading..." /> : "Create Account"}</button>
+            <button >{ isLoading ? <img className={styles.loadingGIF} src="/loading.gif" alt="loading..." /> : "Sign Up"}</button>
+            <button
+                type="button"
+                onClick={handleDemoLogin}
+                className={styles.demoButton}
+            >
+                Try Demo Login
+            </button>
             <p>Already have an account? <Link href='/auth/login'>Log in</Link></p>
         </form>
     </div>   

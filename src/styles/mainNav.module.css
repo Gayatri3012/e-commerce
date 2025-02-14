@@ -17,6 +17,12 @@
     align-items: center;
 }
 
+.logo img{
+    width: 30px;
+    height: 30px;
+}
+
+
 .menu{
     flex: 1 0 60%;
     display: flex;
@@ -42,45 +48,9 @@
     width: 1.7rem;
 }
 
-@media (max-width: 767px) {
-    .navBar{
-        padding: 1.5rem 2.5rem;
-    }
-    .logo{
-        gap: 10px;
-    }
-    
-    .menu{
-        gap: 20px;
-    }
-    .menuItem p{
-        display: none;
-    }
-}
-
-@media (min-width: 768px) {
-    .navBar{
-        padding: 1.5rem;
-    }
-    .logo{
-        gap: 20px;
-    }
-    .menu{
-        gap: 40px;
-    }
-
-    .menuItem img{
-        display: none;
-    }
-  }
 
 .menuItem:hover{
     text-decoration: underline ;
-}
-
-.logo img{
-    width: 30px;
-    height: 30px;
 }
 
 .logoutButton{
@@ -99,12 +69,64 @@
     border-radius: var(--border-radius);
     background-color: #1b2451;
     color: white;
-    font-weight: 500;
+    font-weight: bold;
+    transition: background-color 0.2s ease-in, color 0.2s ease-in;
+
 }
 
 .logoutButton button:hover{
     
     color: #1b2451;
     background-color: #b9c3fc;
+    
+}
+
+@media (min-width: 769px) {
+    .navBar{
+        padding: 1.5rem;
+    }
+    .logo{
+        gap: 20px;
+    }
+    .menu{
+        gap: 40px;
+    }
+
+    .menuItem img{
+        display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .navBar{
+        padding: 1.5rem 2.5rem;
+    }
+    .logo{
+        gap: 10px;
+        font-size: 14px;
+    }
+    
+    .logo img{
+        width: 24px;
+        height: 24px;
+    }
+
+    .menu{
+        gap: 1rem;
+        font-size: medium;
+    }
+    .menuItem p{
+        display: none;
+    }
+
+    .homeIcon{
+        height: 1.7rem;
+        width: 1.7rem;
+    }
+    
+    .cartIcon{
+        height: 1.5rem;
+        width: 1.5rem;
+    }
     
 }

@@ -3,7 +3,9 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
-  "/api/signup": "pages/api/signup.js",
+  "/auth/login": "pages/auth/login.js",
+  "/cart": "pages/cart.js",
+  "/api/login": "pages/api/login.js",
   "/auth": "pages/auth.js",
-  "/auth/login": "pages/auth/login.js"
+  "/shop": "pages/shop.js"
 }

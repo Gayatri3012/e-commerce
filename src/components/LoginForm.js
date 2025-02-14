@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from '../styles/auth.module.css';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -12,6 +12,13 @@ export default function LoginForm() {
 
     const email = useRef();
     const password = useRef();    
+
+    useEffect(() => {
+        if (router.query.demo) {
+            email.current.value = 'demo@ecommerce.com';
+            password.current.value = 'demo123';
+        }
+    }, [router.query]);
 
     const handleLogin = async (event) => {
         event.preventDefault();
@@ -59,7 +66,7 @@ export default function LoginForm() {
             console.error('Login error:', error); 
         });
     }
-    
+
     return <div className={styles.formContainer}>
         <form className={styles.authForm} onSubmit={handleLogin}>
             <h3>Welcome Back!</h3>
