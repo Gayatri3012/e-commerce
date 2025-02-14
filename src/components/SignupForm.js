@@ -74,7 +74,7 @@ export default function SignupForm() {
             <input className={errorMessage ? styles.errorField : undefined} type='email' name='email' id='email' placeholder='Email Address' required ref={email}/>
             
             <input type='password' name='password' id='password' placeholder='Password' required ref={password} minLength={5}/>
-            <button >{ isLoading ? <img className={styles.loadingGIF} src="/loading.gif" alt="loading..." /> : "Sign Up"}</button>
+            { isLoading ? <img className={styles.loadingGIF} src="/loading.gif" alt="loading..." /> : <button >Sign Up</button>}
             <button
                 type="button"
                 onClick={handleDemoLogin}

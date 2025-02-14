@@ -19,6 +19,9 @@ export default function Home() {
           <div>
              <h1>ShopIt</h1>
           </div>
+          <div>
+            <img src="/bg2.png" alt="shopping"/>
+          </div>
         </div>
         <div className={styles.center}>
           <h4>Shop smarter, spend wiser</h4>

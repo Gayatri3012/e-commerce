@@ -73,7 +73,7 @@ export default function LoginForm() {
             {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
             <input className={errorMessage === 'Please enter valid credentials.' ? styles.errorField : undefined} type='email' name='email' id='email' placeholder='Email Address' ref={email} required/>
             <input className={errorMessage === 'Incorrect password.' ? styles.errorField : undefined} type='password' name='password' id='password' placeholder='Password' ref={password} required/>
-            <button >{ isLoading ? <img className={styles.loadingGIF} src="/loading.gif" alt="loading..." /> : "Log In"}</button>
+            { isLoading ? <img className={styles.loadingGIF} src="/loading.gif" alt="loading..." /> : <button >Log In</button>}
             <p>Don&apos;t have an account? <Link href='/auth/'>Sign Up</Link></p>
         </form>
     </div>   

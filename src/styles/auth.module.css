@@ -1,5 +1,6 @@
 .formContainer{
-    min-width: 400px;
+    min-width: 300px;
+    width: 400px;
     border-radius: 12px;
     background-color: rgba(240, 248, 255, 0.563);
 }
@@ -20,6 +21,7 @@
     border: 0;
     background-color: aliceblue;
     color: black;
+    font-size: 16px;
 }
 
 .errorField {
@@ -46,6 +48,7 @@
 .loadingGIF{
     max-width: 30px;
     max-height: 30px;
+    background: transparent;
 }
 
 .authForm button:hover{
@@ -60,4 +63,29 @@
 .authForm a{
     font-weight: 600;
     color: #1b2451;
+}
+
+@media (max-width: 480px) {
+    .formContainer{
+        min-width: 280px;
+        max-width: 400px;
+        width: 100%;
+    }
+
+    .authForm{
+        padding:30px 20px;
+        font-size: 14px;
+    }
+    .authForm input{
+        width: 100%;
+        font-size: 14px;      
+    }
+    .authForm button{
+        padding: 8px;
+        border: none;
+        font-weight: 600;
+        font-size: 16px;
+    }
+    
+    
 }
